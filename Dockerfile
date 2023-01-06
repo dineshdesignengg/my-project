@@ -1,8 +1,16 @@
-FROM openjdk:8-jre-alpine
+FROM openjdk:8-jre-alpine AS build
 
+WORKDIR /app
+
+FROM openjdk:8-jre-alpine AS base
+
+WORKDIR /app
 EXPOSE 8080
 
-COPY --from=build ./build/libs/my-app-1.0-SNAPSHOT.jar /usr/app/
+FROM base AS final
+WORKDIR /app
+COPY --from=base . /usr/app/
 WORKDIR /usr/app
+RUN ls
 
-ENTRYPOINT ["java", "-jar", "my-app-1.0-SNAPSHOT.jar"]
+#ENTRYPOINT ["java", "-jar", "my-app-1.0-SNAPSHOT.jar"]
