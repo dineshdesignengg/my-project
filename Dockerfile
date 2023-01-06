@@ -11,6 +11,7 @@ FROM base AS final
 WORKDIR /app
 COPY --from=base . /usr/app/
 WORKDIR /usr/app
+RUN cd /usr/app && ls
 RUN ls /usr/app
 
 #ENTRYPOINT ["java", "-jar", "my-app-1.0-SNAPSHOT.jar"]
